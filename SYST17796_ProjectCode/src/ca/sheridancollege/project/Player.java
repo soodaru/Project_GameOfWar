@@ -10,6 +10,7 @@ package ca.sheridancollege.project;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
+ * @modifiers Arushi, Ayah, Kate, and Ariel
  */
 public abstract class Player {
 
