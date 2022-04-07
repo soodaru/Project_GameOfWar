@@ -3,7 +3,10 @@
  * Students can modify and extend to implement their game.
  * Add your name as an author and the date!
  */
-package ca.sheridancollege.project;
+package BaseCode;
+
+import ProjectCode.PlayerHand;
+import ProjectCode.War;
 
 /**
  * A class that models each Player in the game. Players have an identifier, which should be unique.
@@ -15,6 +18,8 @@ package ca.sheridancollege.project;
 public abstract class Player {
 
     private String name; //the unique name for this player
+    protected PlayerHand hand;
+    protected War warGame;
 
     /**
      * A constructor that allows you to set the player's unique ID
@@ -46,5 +51,12 @@ public abstract class Player {
      * with logic to play your game.
      */
     public abstract void play();
-
+        
+    public void setHand(PlayerHand hand) {
+        this.hand = hand;
+    }
+    
+    public PlayerHand getHand() {
+        return this.hand;
+    }  
 }

@@ -3,8 +3,9 @@
  * Students can modify and extend to implement their game.
  * Add your name as an author and the date!
  */
-package ca.sheridancollege.project;
+package BaseCode;
 
+import ProjectCode.StandardCard;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -19,8 +20,8 @@ import java.util.Collections;
 public class GroupOfCards {
 
     //The group of cards, stored in an ArrayList
-    private ArrayList<Card> cards;
-    private int size;//the size of the grouping
+    protected ArrayList<StandardCard> cards = new ArrayList();
+    protected int size;//the size of the grouping
 
     public GroupOfCards(int size) {
         this.size = size;
@@ -31,7 +32,7 @@ public class GroupOfCards {
      *
      * @return the group of cards.
      */
-    public ArrayList<Card> getCards() {
+    public ArrayList<StandardCard> getCards() {
         return cards;
     }
 
