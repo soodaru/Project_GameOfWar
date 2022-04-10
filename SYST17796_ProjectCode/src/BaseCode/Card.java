@@ -10,7 +10,7 @@ package BaseCode;
  * game. Students wishing to add to the code should remember to add themselves as a modifier.
  *
  * @author dancye
- * @modifiers Arushi, Ayah, Kate, and Ariel
+ * @modifiers Arushi, Ayah, Kate, and Ariel - April 2022
  */
 public abstract class Card {
     //default modifier for child classes

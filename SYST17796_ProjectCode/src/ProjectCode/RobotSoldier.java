@@ -6,12 +6,13 @@ package ProjectCode;
 import BaseCode.Player;
 /**
  *
- * @author Ayah, Arushi, Kate, and Ariel
+ * @author Ayah, Arushi, Kate, and Ariel - April 2022
  */
 public class RobotSoldier extends Player {
     
     /**
      * Constructor passes name parameter to parent constructor
+     * @param name is PC
      */
     public RobotSoldier(String name) {
         super(name);

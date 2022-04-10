@@ -9,13 +9,13 @@ import java.util.ArrayList;
  *
  * @author Ayah, Arushi, Kate, and Ariel
  */
-public class PlayerHand extends Deck {
+public class PlayerHand {
     private ArrayList<StandardCard> hand;
+    private int size;
     
     public PlayerHand(int size) {
-        super(size);
+        this.size = size;
         hand = new ArrayList();
-        cards = hand;
     }
     
     /**
@@ -70,9 +70,16 @@ public class PlayerHand extends Deck {
     }
     
     /**
-     * @return int size of player's hand
+     * @return ArrayList of player's hand
      */
-    public int getHandSize() {
-        return hand.size();
+    public ArrayList<StandardCard> getHand() {
+        return this.hand;
+    }
+    
+    /**
+     * @return the size of the deck
+     */
+    public int getSize() {
+        return size;
     }
 }

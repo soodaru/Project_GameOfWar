@@ -4,20 +4,17 @@
 package ProjectCode;
 
 import BaseCode.Player;
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
- * @author Ayah, Arushi, Kate, and Ariel
+ * @author Ayah, Arushi, Kate, and Ariel - April 2022
  */
 public class Soldier extends Player {
     private Scanner input = new Scanner(System.in);
-    private PlayerHand hand;
     
     /**
      * Constructor passes name parameter to parent constructor
+     * @param name of player
      */
     public Soldier(String name) {
         super(name);

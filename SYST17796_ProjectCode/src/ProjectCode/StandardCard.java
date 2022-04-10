@@ -7,7 +7,7 @@ import BaseCode.Card;
 
 /**
  *
- * @author Ayah, Arushi, Kate, and Ariel
+ * @author Ayah, Arushi, Kate, and Ariel - April 2022
  */
 public class StandardCard extends Card {
     /**

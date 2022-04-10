@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Ayah, Arushi, Kate, and Ariel
+ * @author Ayah, Arushi, Kate, and Ariel - April 2022
  */
 public class MainPlayMode {
     public static void main(String[] args) {

@@ -13,7 +13,7 @@ import ProjectCode.War;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
- * @modifiers Arushi, Ayah, Kate, and Ariel
+ * @modifiers Arushi, Ayah, Kate, and Ariel - April 2022
  */
 public abstract class Player {
 

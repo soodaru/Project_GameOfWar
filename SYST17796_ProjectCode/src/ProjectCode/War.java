@@ -1,8 +1,10 @@
 /**
  * SYST 17796 Project
- */package ProjectCode;
+ */
+package ProjectCode;
 
 import BaseCode.Game;
+import BaseCode.Deck;
 import BaseCode.Player;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Ayah, Arushi, Kate, and Ariel
+ * @author Ayah, Arushi, Kate, and Ariel - April 2022
  */
 public class War extends Game {
     Scanner input = new Scanner(System.in);
@@ -18,6 +20,8 @@ public class War extends Game {
     public Player winner;
     private Player player1;
     private Player player2;
+    private PlayerHand player1Hand;
+    private PlayerHand player2Hand;
     private Deck deck;
     ArrayList<StandardCard> pile = new ArrayList();
     int maxRounds, numRounds, numGames = 1;
@@ -64,25 +68,29 @@ public class War extends Game {
             player2 = getPlayers().get(1);
 
             // Create player hands
-            player1.setHand(new PlayerHand(26));
-            player2.setHand(new PlayerHand(26));
+            player1Hand = new PlayerHand(26);
+            player2Hand = new PlayerHand(26);
+            
+            // Set player hands
+            player1.setHand(player1Hand);
+            player2.setHand(player2Hand);
 
             // Deal cards to hands
-            dealHand(player1.getHand());    
-            dealHand(player2.getHand());  
-
-            // Prints each player's hands for testing
+            deck.dealHand(player1Hand);
+            deck.dealHand(player2Hand);  
+            
             /*
+            // Prints each player's hands for testing           
             System.out.println("Player 1:");
             for (int i = 0; i < 26; i++) {
-                System.out.println(player1.getHand().getCards().get(i).toString());
+                System.out.println(player1Hand.getHand().get(i).toString());
             }
             System.out.println("\nPlayer 2:");
             for (int i = 0; i < 26; i++) {
-                System.out.println(player2.getHand().getCards().get(i).toString());
+                System.out.println(player2Hand.getHand().get(i).toString());
             }
             */
-
+  
             // Prints number of cards in each player's hand
             handSizeUpdate();
 
@@ -103,27 +111,28 @@ public class War extends Game {
     @Override
     public void play() {
         while (battle()) {
-            if (player1.getHand().getHandSize() == 0) {
+            if (player1Hand.getHand().isEmpty()) {
                 // Player 2 wins
                 winner = player2;
                 numPlayer2Won++;
                 break;
-            } else if (player2.getHand().getHandSize() == 0) {
+            } else if (player2Hand.getHand().isEmpty()) {
                 // Player 1 wins
                 winner = player1;
                 numPlayer1Won++;
                 break;
             } else if (numRounds > maxRounds) {
-                if (player1.getHand().getHandSize() > player2.getHand().getHandSize()) {
+                if (player1Hand.getHand().size() > player2Hand.getHand().size()) {
                     winner = player1;
                     numPlayer1Won++;
                     break;
-                } else if (player1.getHand().getHandSize() < player2.getHand().getHandSize()) {
+                } else if (player1Hand.getHand().size() < player2Hand.getHand().size()) {
                     winner = player2;
                     numPlayer2Won++;
                     break;
                 } else {
                     winner = null;
+                    break;
                 }
             }
         }
@@ -139,7 +148,7 @@ public class War extends Game {
     private boolean battle() {
         System.out.println("\nRound " + numRounds + ":");
         player1.play();
-        StandardCard player1DrawCard = player1.getHand().drawTopCard();
+        StandardCard player1DrawCard = player1Hand.drawTopCard();
         if (player1DrawCard == null) {
             // Returns false if player 1 has no cards in their hand to draw
             return false;
@@ -149,7 +158,7 @@ public class War extends Game {
         System.out.println(player1.getName() + " drew a " + player1DrawCard.toString());
         
         player2.play();
-        StandardCard player2DrawCard = player2.getHand().drawTopCard();
+        StandardCard player2DrawCard = player2Hand.drawTopCard();
         if (player2DrawCard == null) {
             // Returns false if player 2 has no cards in their hand to draw
             return false;
@@ -177,12 +186,12 @@ public class War extends Game {
 
         // If player 1 draws the higher card, all cards are added to player 1's hand
         if (player1Draw.getCardValue() > player2Draw.getCardValue()) {
-            player1.getHand().addCardToHand(player1Draw);
-            player1.getHand().addCardToHand(player2Draw);
+            player1Hand.addCardToHand(player1Draw);
+            player1Hand.addCardToHand(player2Draw);
             
             if (!pile.isEmpty()) {
                 // pile is not empty if war() method is invoked and cards from pile are added to player 1's hand
-                player1.getHand().addCards(pile);
+                player1Hand.addCards(pile);
                 System.out.println(player1.getName() + " wins the war! All cards were added to your hand.");
             } else {
                 // pile is empty if war() method is not invoked
@@ -192,12 +201,12 @@ public class War extends Game {
             handSizeUpdate();
         // If player 2 draws the higher card, all cards are added to player 2's hand
         } else if (player1Draw.getCardValue() < player2Draw.getCardValue()) {
-            player2.getHand().addCardToHand(player1Draw);
-            player2.getHand().addCardToHand(player2Draw);
+            player2Hand.addCardToHand(player1Draw);
+            player2Hand.addCardToHand(player2Draw);
             
             // pile is not empty if war() method is invoked and cards from pile are added to player 1's hand
             if (!pile.isEmpty()) {
-                player2.getHand().addCards(pile);
+                player2Hand.addCards(pile);
                 System.out.println(player2.getName() + " wins the war! All cards were added to your hand.");
             } else {
                 // pile is empty if war() method is not invoked
@@ -220,12 +229,12 @@ public class War extends Game {
      * @param pile contains cards drawn before and during war until a player wins the war
      */
     private void war(ArrayList<StandardCard> pile) {
-        if (player1.getHand().getHandSize() < 4) {
+        if (player1Hand.getHand().size() < 4) {
             winner = player2;
             numPlayer2Won++;
             System.out.println(player1.getName() + " doen't have enough cards in their hand.");
             declareWinner();
-        } else if (player2.getHand().getHandSize() < 4) {
+        } else if (player2Hand.getHand().size() < 4) {
             winner = player1;
             numPlayer1Won++;
             System.out.println(player2.getName() + " doen't have enough cards in their hand.");
@@ -233,12 +242,12 @@ public class War extends Game {
         }
         
         // Adds 3 cards from each player's hand to pile
-        pile.addAll(player1.getHand().drawCards(3));
-        pile.addAll(player2.getHand().drawCards(3));
+        pile.addAll(player1Hand.drawCards(3));
+        pile.addAll(player2Hand.drawCards(3));
         
         // Draws top card from each player's hand
-        StandardCard player1DrawCard = player1.getHand().drawTopCard();
-        StandardCard player2DrawCard = player2.getHand().drawTopCard();
+        StandardCard player1DrawCard = player1Hand.drawTopCard();
+        StandardCard player2DrawCard = player2Hand.drawTopCard();
         
         // Displays cards drawn
         System.out.println(player1.getName() + " drew a " + player1DrawCard.toString());
@@ -246,18 +255,8 @@ public class War extends Game {
         
         // Passes top cards drawn and pile to compare() method
         compare(player1DrawCard, player2DrawCard, pile);
-        //numRounds--;
+        numRounds--;
         pile.removeAll(pile);
-    }
-    
-    /**
-     * Deal 26 cards to each hand in alternating order
-     * @param hand to deal cards to
-     */
-    private void dealHand(PlayerHand hand) {  
-        for (int i = 0; i < hand.getSize(); i++) {
-            hand.addCardToHand(deck.dealCard());
-        }
     }
     
     /**
@@ -289,8 +288,8 @@ public class War extends Game {
      * Prints number of cards in each player's hand after each round
      */
     private void handSizeUpdate() {
-        System.out.println("\n" + player1.getName() + " has " + player1.getHand().getHandSize() + " cards in their hand.");
-        System.out.println(player2.getName() + " has " + player2.getHand().getHandSize() + " cards in their hand.");
+        System.out.println("\n" + player1.getName() + " has " + player1Hand.getHand().size() + " cards in their hand.");
+        System.out.println(player2.getName() + " has " + player2Hand.getHand().size() + " cards in their hand.");
         for (int i = 0; i < 10; i++)
             System.out.print("----------");
     }
