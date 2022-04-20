@@ -33,22 +33,22 @@ public class PlayerTest {
     @Test
     public void testGetNameGOOD() {
         System.out.println("getNameGOOD returns player name");
-        Player instance = new Player("Ariel") {
+        Player testPlayer = new Player("Ariel") {
             @Override
             public void play() {}};
         String expResult = "Ariel";
-        String result = instance.getName();
+        String result = testPlayer.getName();
         assertEquals(expResult, result);
     }
     
     @Test
     public void testGetNameBAD() {
         System.out.println("getNameBAD doesn't return player name");
-        Player player = new Player("") {
+        Player testPlayer = new Player("") {
             @Override
             public void play() {}};
         boolean result = false;
-        if(player.getName().length() > 0) 
+        if(testPlayer.getName().length() > 0) 
             result = true;           
         boolean expResult = false;
         assertEquals(expResult, result);
