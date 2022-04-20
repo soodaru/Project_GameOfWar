@@ -55,9 +55,9 @@ public class War extends Game {
                 maxRounds = input.nextInt();
                 input.nextLine();
                 
-                if (maxRounds < 0)
+                if (maxRounds <= 0)
                     System.out.println("Invalid entry. Please enter positie integer for maxiumum number of rounds.");
-            } while (maxRounds < 0);
+            } while (maxRounds <= 0);
         
 
             // Create new deck of cards
