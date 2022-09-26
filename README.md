@@ -1,4 +1,4 @@
-# SYST17796-Project
+#War Game
 
 WELCOME TO THE GAME OF WAR!
 
